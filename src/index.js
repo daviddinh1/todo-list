@@ -16,6 +16,8 @@ let example = new items("code","code react","1-20-2020","high");
 function outputTodos(items){ //does not createTodos but outputs it to our html file
  const inboxContainer = document.querySelector(".inbox-container");
  const todoContainer = document.createElement("div");
+ const checkerBtn = document.createElement("button");
+
  todoContainer.setAttribute("class","todoContainer");
 
  let todoTitle = items.title;
@@ -31,16 +33,53 @@ function outputTodos(items){ //does not createTodos but outputs it to our html f
  todoItem3.textContent = todoDueDate;
 
  
-
+ todoContainer.appendChild(checkerBtn);
  todoContainer.appendChild(todoItem1);
  todoContainer.appendChild(todoItem2);
  todoContainer.appendChild(todoItem3);
 
  inboxContainer.appendChild(todoContainer);
+ todoChecker(checkerBtn,todoItem1);
 }
 
-function createTodos(){
+function createTodos(){ //uses dialog we made to create todos
+ const showCreateTodo = document.querySelector("#showCreateTodo");
+ const dialogTodo = document.querySelector("#createTodo");
+ const createBtn = document.querySelector("#createBtn");
 
+ showCreateTodo.addEventListener("click",()=>{
+  dialogTodo.showModal();
+ });
+
+ let valueTitle = dialogTodo.querySelector("#title").value;
+ let valueDesc = dialogTodo.querySelector("#description").value;
+ let valueDuedate = dialogTodo.querySelector("#dueDate").value;
+ let valuePrio = dialogTodo.querySelector("#priority").value;
+
+ createBtn.addEventListener("click", (event) => {
+   event.preventDefault(); // We don't want to submit this fake form
+  let valueTitle = dialogTodo.querySelector("#title").value;
+  let valueDesc = dialogTodo.querySelector("#description").value;
+  let valueDuedate = dialogTodo.querySelector("#dueDate").value;
+  let valuePrio = dialogTodo.querySelector("#priority").value;
+  let newTodo = new items(valueTitle,valueDesc,valueDuedate,valuePrio);
+  outputTodos(newTodo);
+ });
 }
+
+function todoChecker(checkerBtn,todoItem1){
+ checkerBtn.addEventListener("click",()=>{
+  todoItem1.style.textDecoration = "line-through";
+  console.log("its working");
+ });
+ checkerBtn.addEventListener("click",()=>{
+  todoContainer.style.textDecoration = "";
+ });
+}
+
+
+
+
 
 outputTodos(example);
+createTodos();

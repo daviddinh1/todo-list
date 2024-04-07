@@ -43,3 +43,7 @@
  display: flex;
  gap: 10px;
 }
+
+#showCreateTodo{
+ width: 100px;
+}
