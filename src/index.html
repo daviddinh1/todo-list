@@ -8,12 +8,13 @@
 <body>
  <div class="container">
   <div class="projects">
-   Left
+   <button class="projectDiv" id="0">Projects</button>
+   <button id="btnProjects">+</button>
   </div>
 
   <div class="inbox">
    <div id="inbox-header">Inbox</div>
-   <div class="inbox-container">stuff lel</div>
+   <div class="inbox-container" id="0">stuff lel</div>
   </div>
 
    <button id="showCreateTodo">TEST TEST TEST</button>
@@ -52,5 +53,18 @@
    </div>
   </form>
  </dialog>
+
+ <dialog id="createProject">
+  <form>
+   <label for="projectTitle">Create Project:</label>
+   <input type="text" id="projectTitle">
+
+   <div>
+    <button id="createProjectBtn">Create</button>
+    <button value="cancel" formmethod="dialog">Cancel</button>
+   </div>
+  </form>
+ </dialog>
+
 </body>
 </html>
