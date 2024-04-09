@@ -7,6 +7,6 @@ export function project(i){
  
  createTodoContainer.setAttribute("id",i);
  //inbox.removeChild(inbox.lastChild);
- 
+ createTodoContainer.style.display = "none";
  inbox.appendChild(createTodoContainer);
 }

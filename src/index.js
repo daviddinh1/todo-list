@@ -14,8 +14,8 @@ let example = new items("code","code react","1-20-2020","high");
 
 //later on figure out on how to store the todos
 
-function outputTodos(items){ //does not createTodos but outputs it to our html file
- const inboxContainer = document.querySelector(".inbox-container");
+function outputTodos(items,index){ //does not createTodos but outputs it to our html file
+ const inboxContainer = document.getElementsByClassName("inbox-container");
  const todoContainer = document.createElement("div");
  const checkerBtn = document.createElement("button");
  const deleteBtn = document.createElement("button");
@@ -42,12 +42,10 @@ function outputTodos(items){ //does not createTodos but outputs it to our html f
  todoContainer.appendChild(todoItem2);
  todoContainer.appendChild(todoItem3);
  todoContainer.appendChild(deleteBtn);
-
- inboxContainer.appendChild(todoContainer);
+ console.log(index);
+ inboxContainer[index].appendChild(todoContainer);
  todoChecker(checkerBtn,todoItem1,todoItem2,todoItem3);
  deleteTodo(deleteBtn,todoContainer);
- switchProject();
-
 }
 
 function createTodos(){ //uses dialog we made to create todos
@@ -71,7 +69,7 @@ function createTodos(){ //uses dialog we made to create todos
   let valueDuedate = dialogTodo.querySelector("#dueDate").value;
   let valuePrio = dialogTodo.querySelector("#priority").value;
   let newTodo = new items(valueTitle,valueDesc,valueDuedate,valuePrio);
-  outputTodos(newTodo);
+  outputTodos(newTodo,index); //how to get the correct index to output this on a page
  });
 }
 
@@ -112,6 +110,8 @@ function createProject(){
 
  const createProjectBtn = showProjectsDialog.querySelector("#createProjectBtn");
  createProjectBtn.addEventListener("click",(event)=>{
+  i++;
+  project(i); //creates todo page
   event.preventDefault(); 
   let projectTitle = showProjectsDialog.querySelector("#projectTitle").value;
   console.log(projectTitle);
@@ -119,12 +119,11 @@ function createProject(){
   projectDiv.textContent = projectTitle;
   projectDiv.setAttribute("class","projectDiv");
   projectsContainer.append(projectDiv);
-  i++;
-  project(i); //creates todo page
+ 
  });
 }
 
-
+let index = 0;
 function switchProject() {
   const container = document.querySelector('.container'); // Parent container where projectDivs will be added
 
@@ -132,7 +131,7 @@ function switchProject() {
   container.addEventListener('click', (event) => {
     // Check if the clicked element is a projectDiv
     if (event.target.classList.contains('projectDiv')) {
-      const index = Array.from(container.getElementsByClassName('projectDiv')).indexOf(event.target);
+      index = Array.from(container.getElementsByClassName('projectDiv')).indexOf(event.target);
       const testDivs = document.getElementsByClassName('inbox-container');
       
       // Hide all testDivs initially
@@ -144,7 +143,6 @@ function switchProject() {
       if (testDivs[index]) {
         testDivs[index].style.display = 'block';
       }
-      console.log(index + ' its clicking');
     }
   });
 }
@@ -153,7 +151,8 @@ function switchProject() {
 
 
 
-outputTodos(example);
+outputTodos(example,index);
 createTodos();
 createProject();
+switchProject();
 
